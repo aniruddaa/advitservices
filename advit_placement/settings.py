@@ -146,5 +146,5 @@ LOGIN_URL = "login"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CSRF_TRUSTED_ORIGINS = [
-    'https://advitservices-main-ed85eca.kuberns.cloud/'
+    'advitservices-main-ed85eca.kuberns.cloud/'
 ]
