@@ -31,8 +31,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     'advitservices-main-ed85eca.kuberns.cloud',
-    'localhost',
-    '127.0.0.1',
+    
 ]
 
 
