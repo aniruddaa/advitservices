@@ -1,0 +1,178 @@
+/* AI Advisor Animations */
+
+/* Fade in animation for the main container */
+.ai-preferences-container {
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Slide in animation for cards */
+.ai-card {
+    animation: slideIn 0.6s ease-out;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ai-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+/* Pulse animation for the submit button */
+.btn-ai-submit {
+    transition: all 0.3s ease;
+    animation: gentlePulse 2s infinite;
+}
+
+.btn-ai-submit:hover {
+    transform: scale(1.05);
+    animation: none;
+}
+
+/* Fade in animation for checkboxes and radio buttons */
+.form-check {
+    animation: fadeInLeft 0.5s ease-out;
+    animation-fill-mode: both;
+}
+
+/* Staggered animation delay for form-checks */
+.form-check:nth-child(1) { animation-delay: 0.1s; }
+.form-check:nth-child(2) { animation-delay: 0.2s; }
+.form-check:nth-child(3) { animation-delay: 0.3s; }
+
+/* Progress indicator animation */
+.ai-progress-indicator {
+    animation: slideInRight 0.6s ease-out;
+}
+
+/* How It Works section animations */
+.how-it-works li {
+    animation: fadeInUp 0.5s ease-out;
+    animation-fill-mode: both;
+}
+
+.how-it-works li:nth-child(1) { animation-delay: 0.2s; }
+.how-it-works li:nth-child(2) { animation-delay: 0.4s; }
+.how-it-works li:nth-child(3) { animation-delay: 0.6s; }
+.how-it-works li:nth-child(4) { animation-delay: 0.8s; }
+
+/* Icon animations */
+.fas {
+    transition: transform 0.3s ease;
+}
+
+.fas:hover {
+    transform: scale(1.2);
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes gentlePulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0,123,255,0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(0,123,255,0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(0,123,255,0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        transform: translateX(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Smooth transitions for all interactive elements */
+.form-control, .form-select, .form-check-input {
+    transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Badge animations */
+.badge {
+    animation: fadeIn 0.5s ease-out;
+    transition: all 0.3s ease;
+}
+
+.badge:hover {
+    transform: scale(1.1);
+}
+
+/* Alert animations */
+.alert {
+    animation: slideIn 0.5s ease-out;
+}
+
+/* Card header animations */
+.card-header {
+    position: relative;
+    overflow: hidden;
+}
+
+.card-header::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    to {
+        left: 100%;
+    }
+}

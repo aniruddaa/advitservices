@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}{{ company.name }} - Advit Placement{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body text-center">
+                <img src="{{ company.logo.url }}" alt="{{ company.name }}"
+                     style="width: 150px; height: 150px; object-fit: cover;" class="rounded-circle mb-3">
+                <h3>{{ company.name }}</h3>
+                {% if company.is_verified %}
+                    <span class="badge bg-success mb-3">Verified Company</span>
+                {% endif %}
+                {% if company.website %}
+                    <p>
+                        <a href="{{ company.website }}" target="_blank" class="btn btn-outline-primary">
+                            <i class="fas fa-globe"></i> Visit Website
+                        </a>
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>About {{ company.name }}</h4>
+            </div>
+            <div class="card-body">
+                <div class="mb-4">
+                    <h5>Description</h5>
+                    <p>{{ company.description|linebreaks }}</p>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h5>Industry</h5>
+                        <p>{{ company.industry }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Company Size</h5>
+                        <p>{{ company.get_company_size_display }}</p>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h5>Founded</h5>
+                        <p>{{ company.founded_year }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Location</h5>
+                        <p>{{ company.location }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h4>Open Positions</h4>
+            </div>
+            <div class="card-body">
+                {% if jobs %}
+                    <div class="list-group">
+                        {% for job in jobs %}
+                            <a href="{% url 'job-detail' job.pk %}" class="list-group-item list-group-item-action">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="mb-1">{{ job.title }}</h5>
+                                        <small class="text-muted">
+                                            <i class="fas fa-map-marker-alt"></i> {{ job.location }} |
+                                            <i class="fas fa-clock"></i> {{ job.get_job_type_display }}
+                                        </small>
+                                    </div>
+                                    <span class="badge bg-primary rounded-pill">
+                                        {{ job.posted_date|timesince }} ago
+                                    </span>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="alert alert-info">
+                        No open positions at the moment.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

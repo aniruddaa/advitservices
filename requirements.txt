@@ -1,0 +1,7 @@
+django>=5.2.7
+pillow
+django-crispy-forms
+crispy-bootstrap4
+scikit-learn
+numpy
+joblib

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ job.title }} - Advit Placement{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title">{{ job.title }}</h2>
+                <div class="d-flex align-items-center mb-3">
+                    <img src="{{ job.company.logo.url }}" alt="{{ job.company.name }}" 
+                         style="width: 50px; height: 50px; object-fit: cover;" class="rounded me-3">
+                    <div>
+                        <h5 class="mb-0">{{ job.company.name }}</h5>
+                        <p class="text-muted mb-0">{{ job.location }}</p>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <p><i class="fas fa-building"></i> {{ job.get_job_type_display }}</p>
+                        {% if job.salary %}
+                            <p><i class="fas fa-money-bill-wave"></i> {{ job.salary }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        <p><i class="fas fa-calendar"></i> Posted: {{ job.posted_date|date:"F j, Y" }}</p>
+                        <p><i class="fas fa-clock"></i> Deadline: {{ job.deadline|date:"F j, Y" }}</p>
+                    </div>
+                </div>
+
+                <h4>Job Description</h4>
+                <div class="mb-4">{{ job.description|linebreaks }}</div>
+
+                <h4>Requirements</h4>
+                <div class="mb-4">{{ job.requirements|linebreaks }}</div>
+
+                {% if user.is_authenticated and not already_applied %}
+                    <a href="{% url 'job-apply' job.pk %}" class="btn btn-primary">
+                        Apply Now
+                    </a>
+                {% elif already_applied %}
+                    <div class="alert alert-info">
+                        You have already applied for this position.
+                    </div>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-primary">
+                        Login to Apply
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h4>About {{ job.company.name }}</h4>
+                <p>{{ job.company.description|truncatewords:50 }}</p>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-globe"></i> <a href="{{ job.company.website }}" target="_blank">Website</a></li>
+                    <li><i class="fas fa-industry"></i> {{ job.company.industry }}</li>
+                    <li><i class="fas fa-users"></i> {{ job.company.get_company_size_display }}</li>
+                    <li><i class="fas fa-calendar-alt"></i> Founded: {{ job.company.founded_year }}</li>
+                </ul>
+                <a href="{% url 'company-detail' job.company.pk %}" class="btn btn-outline-primary btn-block">
+                    View Company Profile
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/ai_advisor.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4 ai-preferences-container">
+    <h2 class="mb-4">AI Career Advisor Preferences</h2>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4 ai-card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="card-title mb-0">Career Preferences</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-4">
+                            <label for="interests" class="form-label">Career Interests & Goals</label>
+                            <textarea name="interests" id="interests" class="form-control" rows="4" 
+                                placeholder="Example: I'm interested in software development, particularly in web technologies and AI. I aim to become a full-stack developer and eventually a technical lead.">{{ interests }}</textarea>
+                            <small class="text-muted">Be specific about your interests, goals, and the type of work you enjoy.</small>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="work_environment" class="form-label">Preferred Work Environment</label>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="remote" name="work_environment[]" value="remote" {% if 'remote' in preferences.work_environment %}checked{% endif %}>
+                                        <label class="form-check-label" for="remote">Remote Work</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="hybrid" name="work_environment[]" value="hybrid" {% if 'hybrid' in preferences.work_environment %}checked{% endif %}>
+                                        <label class="form-check-label" for="hybrid">Hybrid</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="onsite" name="work_environment[]" value="onsite" {% if 'onsite' in preferences.work_environment %}checked{% endif %}>
+                                        <label class="form-check-label" for="onsite">On-site</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Experience Level</label>
+                            <select name="experience_level" class="form-select">
+                                <option value="entry" {% if preferences.experience_level == 'entry' %}selected{% endif %}>Entry Level (0-2 years)</option>
+                                <option value="mid" {% if preferences.experience_level == 'mid' %}selected{% endif %}>Mid Level (3-5 years)</option>
+                                <option value="senior" {% if preferences.experience_level == 'senior' %}selected{% endif %}>Senior Level (6+ years)</option>
+                                <option value="lead" {% if preferences.experience_level == 'lead' %}selected{% endif %}>Lead/Management</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Career Focus Areas</label>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="technical" name="focus_areas[]" value="technical" {% if 'technical' in preferences.focus_areas %}checked{% endif %}>
+                                        <label class="form-check-label" for="technical">Technical Development</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="management" name="focus_areas[]" value="management" {% if 'management' in preferences.focus_areas %}checked{% endif %}>
+                                        <label class="form-check-label" for="management">Management</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="consulting" name="focus_areas[]" value="consulting" {% if 'consulting' in preferences.focus_areas %}checked{% endif %}>
+                                        <label class="form-check-label" for="consulting">Consulting</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-ai-submit">Update Preferences</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card mb-4 ai-card">
+                <div class="card-header bg-info text-white">
+                    <h4 class="card-title mb-0">How It Works</h4>
+                </div>
+                <div class="card-body">
+                    <h5 class="mb-3">Our AI Career Advisor Uses:</h5>
+                    <ul class="list-unstyled how-it-works">
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            Your career interests and goals
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            Skills from your profile
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            Work experience history
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            Educational background
+                        </li>
+                    </ul>
+                    
+                    <h5 class="mt-4 mb-3">To Provide You:</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="fas fa-star text-warning me-2"></i>
+                            Personalized job recommendations
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-star text-warning me-2"></i>
+                            Skill development suggestions
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-star text-warning me-2"></i>
+                            Career path guidance
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-star text-warning me-2"></i>
+                            Industry insights
+                        </li>
+                    </ul>
+                    
+                    <div class="alert alert-info mt-4">
+                        <i class="fas fa-info-circle me-2"></i>
+                        The more information you provide, the better our AI can tailor recommendations to your career goals.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Advit Placement{% endblock %}
+
+{% block content %}
+<div class="jumbotron text-center py-5 bg-light rounded mb-4">
+    <h1 class="display-4">Welcome to Advit Placement Services</h1>
+    <p class="lead">Connecting talented professionals with great opportunities</p>
+    <hr class="my-4">
+    <p>Find your dream job or hire the best talent for your company</p>
+    <div class="mt-4">
+        {% if user.is_authenticated %}
+            <a class="btn btn-primary btn-lg me-3" href="{% url 'job-list' %}" role="button">Browse Jobs</a>
+            {% if not user.company %}
+                <a class="btn btn-outline-primary btn-lg" href="{% url 'company-register' %}" role="button">Register Company</a>
+            {% endif %}
+        {% else %}
+            <a class="btn btn-primary btn-lg me-3" href="{% url 'register' %}" role="button">Get Started</a>
+            <a class="btn btn-outline-primary btn-lg" href="{% url 'about' %}" role="button">Learn More</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row mb-5">
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-search fa-3x text-primary mb-3"></i>
+                <h3>Find Jobs</h3>
+                <p>Search through thousands of job listings from top companies across various industries.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-building fa-3x text-primary mb-3"></i>
+                <h3>Company Profiles</h3>
+                <p>Learn about potential employers and their company culture before applying.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-file-alt fa-3x text-primary mb-3"></i>
+                <h3>Easy Applications</h3>
+                <p>Apply to multiple jobs with your profile and track your application status.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <h2 class="mb-4">Latest Job Opportunities</h2>
+        {% if latest_jobs %}
+            <div class="list-group">
+                {% for job in latest_jobs %}
+                    <a href="{% url 'job-detail' job.pk %}" class="list-group-item list-group-item-action">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="mb-1">{{ job.title }}</h5>
+                                <small>{{ job.company.name }} | {{ job.location }}</small>
+                            </div>
+                            <span class="badge bg-primary rounded-pill">{{ job.get_job_type_display }}</span>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info">No jobs available at the moment.</div>
+        {% endif %}
+    </div>
+    <div class="col-md-6">
+        <h2 class="mb-4">Featured Companies</h2>
+        {% if featured_companies %}
+            <div class="row">
+                {% for company in featured_companies %}
+                    <div class="col-6 mb-4">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <img src="{{ company.logo.url }}" alt="{{ company.name }}"
+                                     style="width: 80px; height: 80px; object-fit: cover;" class="rounded-circle mb-3">
+                                <h5>{{ company.name }}</h5>
+                                <p class="text-muted mb-0">{{ company.industry }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info">No featured companies at the moment.</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

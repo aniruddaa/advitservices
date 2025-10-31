@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Companies - Advit Placement{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h2>Companies</h2>
+    </div>
+    <div class="col-md-4 text-end">
+        {% if user.is_authenticated and not user.company %}
+            <a href="{% url 'company-register' %}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Register Company
+            </a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    {% for company in companies %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <img src="{{ company.logo.url }}" alt="{{ company.name }}" 
+                         style="width: 100px; height: 100px; object-fit: cover;" class="rounded-circle mb-3">
+                    <h4 class="card-title">{{ company.name }}</h4>
+                    <p class="text-muted">{{ company.industry }}</p>
+                    <p class="card-text">{{ company.description|truncatewords:30 }}</p>
+                </div>
+                <div class="card-footer bg-transparent text-center">
+                    <a href="{% url 'company-detail' company.pk %}" class="btn btn-outline-primary">View Profile</a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                No companies registered yet.
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

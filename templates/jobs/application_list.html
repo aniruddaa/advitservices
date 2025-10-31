@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}My Applications - Advit Placement{% endblock %}
+
+{% block content %}
+<h2>Applications</h2>
+{% if applications %}
+    <div class="list-group">
+        {% for app in applications %}
+            <div class="list-group-item">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5>{{ app.job.title }}</h5>
+                        <small class="text-muted">Applied by {{ app.applicant.username }} on {{ app.applied_date|date:"F j, Y" }}</small>
+                        <p class="mb-0">Status: <span id="status-badge-{{ app.id }}" class="badge {{ app.status }}">{{ app.get_status_display }}</span></p>
+                    </div>
+                    <div>
+                        <a href="{% url 'job-detail' app.job.pk %}" class="btn btn-sm btn-outline-primary">View Job</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="alert alert-info">No applications found.</div>
+{% endif %}
+{% endblock %}
