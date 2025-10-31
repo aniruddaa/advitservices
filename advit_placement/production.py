@@ -7,6 +7,10 @@ DEBUG = False
 # Add your domain name or IP address here
 ALLOWED_HOSTS = ['advitservices-main-ed85eca.kuberns.cloud', 'www.advitservices-main-ed85eca.kuberns.cloud']
 
+# Add WhiteNoise Middleware
+MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 # Database settings (use your production database settings)
 DATABASES = {
     'default': {

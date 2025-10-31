@@ -26,6 +26,14 @@ SECRET_KEY = "django-insecure-#uius^_yoma7n_d-j(&fh^t4&4_)x7wghzkzf*gbzi5i74z^me
 DEBUG = True
 
 ALLOWED_HOSTS = []
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
+
+ALLOWED_HOSTS = [
+    'advitservices-main-ed85eca.kuberns.cloud',
+    'localhost',
+    '127.0.0.1',
+]
 
 
 # Application definition
