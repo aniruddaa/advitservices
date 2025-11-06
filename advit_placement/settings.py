@@ -23,15 +23,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-#uius^_yoma7n_d-j(&fh^t4&4_)x7wghzkzf*gbzi5i74z^me"
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# For local development we enable DEBUG. In production set this to False
 DEBUG = True
 
-ALLOWED_HOSTS = []
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
+# Hosts allowed to serve this site. Keep localhost entries for dev.
 ALLOWED_HOSTS = [
     'advitservices-main-ed85eca.kuberns.cloud',
-    
+    '127.0.0.1',
+    'localhost',
 ]
 
 
@@ -129,7 +128,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
@@ -146,5 +145,7 @@ LOGIN_URL = "login"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CSRF_TRUSTED_ORIGINS = [
-    'advitservices-main-ed85eca.kuberns.cloud/'
+    "https://advitservices-main-ed85eca.kuberns.cloud",
+    "http://127.0.0.1:8000",
+    "http://localhost:8000",
 ]
