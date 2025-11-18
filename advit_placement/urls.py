@@ -27,7 +27,7 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('jobs/', include('jobs.urls')),
     path('company/', include('company.urls')),
-    path('ai/', include('ai_advisor.urls')),
+    # path('ai/', include('ai_advisor.urls')),  # Temporarily disabled due to NumPy compatibility issues
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import importlib
+import warnings
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -47,10 +49,17 @@ INSTALLED_APPS = [
     "jobs.apps.JobsConfig",
     "company.apps.CompanyConfig",
     "core.apps.CoreConfig",
-    "ai_advisor.apps.AiAdvisorConfig",
-    "crispy_forms",
-    "crispy_bootstrap4",
+    # "ai_advisor.apps.AiAdvisorConfig",  # Temporarily disabled due to NumPy compatibility issues
 ]
+
+# Optional third-party apps: only enable if installed to avoid startup errors
+for _pkg in ("crispy_forms", "crispy_bootstrap4"):
+    try:
+        importlib.import_module(_pkg)
+    except Exception:
+        warnings.warn(f"Optional package '{_pkg}' not installed — some UI features may be disabled.", RuntimeWarning)
+    else:
+        INSTALLED_APPS.append(_pkg)
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -146,6 +155,5 @@ LOGIN_URL = "login"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CSRF_TRUSTED_ORIGINS = [
     "https://advitservices-main-ed85eca.kuberns.cloud",
-    "http://127.0.0.1:8000",
     "http://localhost:8000",
 ]

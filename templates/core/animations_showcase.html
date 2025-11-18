@@ -1,0 +1,309 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Animation Showcase - Advit Placement Services{% endblock %}
+
+{% block extra_css %}
+<style>
+    .showcase-section {
+        padding: 4rem 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .showcase-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        width: 100%;
+    }
+    
+    .demo-box {
+        padding: 2rem;
+        border-radius: 15px;
+        background: white;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    .demo-box:hover {
+        transform: translateY(-15px) rotateX(5deg) rotateY(-5deg);
+        box-shadow: 0 20px 60px rgba(35, 213, 171, 0.3);
+    }
+    
+    .animation-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: #007bff;
+    }
+    
+    .demo-button {
+        margin-top: 1rem;
+        width: 100%;
+    }
+    
+    /* 3D Box Animation */
+    .box-3d {
+        width: 150px;
+        height: 150px;
+        margin: 2rem auto;
+        perspective: 1000px;
+        cursor: pointer;
+    }
+    
+    .box-3d-inner {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        transition: transform 0.6s;
+        transform-style: preserve-3d;
+    }
+    
+    .box-3d:hover .box-3d-inner {
+        transform: rotateY(360deg) rotateX(360deg);
+    }
+    
+    /* Floating animation */
+    .floating-box {
+        width: 100px;
+        height: 100px;
+        background: linear-gradient(135deg, #23a6d5, #23d5ab);
+        border-radius: 10px;
+        margin: 1rem auto;
+        animation: floatingBox 3s ease-in-out infinite;
+    }
+    
+    @keyframes floatingBox {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+    }
+    
+    /* Pulse animation */
+    .pulse-box {
+        width: 100px;
+        height: 100px;
+        background: linear-gradient(135deg, #e73c7e, #ee7752);
+        border-radius: 50%;
+        margin: 1rem auto;
+        animation: pulseBox 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulseBox {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+    }
+    
+    /* Gradient shift */
+    .gradient-box {
+        width: 150px;
+        height: 150px;
+        margin: 1rem auto;
+        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        background-size: 400% 400%;
+        border-radius: 10px;
+        animation: gradientShift 3s ease infinite;
+    }
+    
+    @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="jumbotron">
+    <div class="container text-center">
+        <h1 class="display-4 glow">Modern 3D Animated Design</h1>
+        <p class="lead">Experience Beautiful Animations & Pixel-Perfect Interactions</p>
+        <a href="#features" class="btn btn-primary btn-lg mt-3">Explore Features</a>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="showcase-section" id="features">
+    <div class="container">
+        <h2 class="text-center mb-5 slide-in-left">Animation Features</h2>
+        
+        <div class="showcase-grid">
+            <!-- 3D Card Hover -->
+            <div class="demo-box slide-in-left">
+                <div class="animation-title">3D Card Hover</div>
+                <p>Hover over cards for stunning 3D perspective effects with depth and rotation.</p>
+                <div class="box-3d">
+                    <div class="box-3d-inner">Hover Me</div>
+                </div>
+                <button class="btn btn-primary demo-button" onclick="notify('3D card effect activated!', 'success')">Try Effect</button>
+            </div>
+            
+            <!-- Floating Animation -->
+            <div class="demo-box slide-in-right">
+                <div class="animation-title">Floating Elements</div>
+                <p>Elements smoothly float up and down creating a dynamic, engaging interface.</p>
+                <div class="floating-box"></div>
+                <button class="btn btn-primary demo-button" onclick="notify('Floating animation running!', 'info')">Start Animation</button>
+            </div>
+            
+            <!-- Pulse Effect -->
+            <div class="demo-box slide-in-left">
+                <div class="animation-title">Pulse Effects</div>
+                <p>Attention-grabbing pulse animations for important elements and badges.</p>
+                <div class="pulse-box"></div>
+                <button class="btn btn-primary demo-button" onclick="notify('Pulse effect activated!', 'warning')">Activate</button>
+            </div>
+            
+            <!-- Gradient Animation -->
+            <div class="demo-box slide-in-right">
+                <div class="animation-title">Animated Gradients</div>
+                <p>Smooth color transitions and animated gradient backgrounds for modern look.</p>
+                <div class="gradient-box"></div>
+                <button class="btn btn-primary demo-button" onclick="notify('Gradient animation running!', 'success')">View Gradient</button>
+            </div>
+            
+            <!-- Button Ripple -->
+            <div class="demo-box slide-in-left">
+                <div class="animation-title">Button Ripple</div>
+                <p>Click buttons for smooth ripple effect spreading from click point.</p>
+                <button class="btn btn-primary demo-button w-100" onclick="notify('Ripple effect complete!', 'success')">Click for Ripple</button>
+            </div>
+            
+            <!-- Smooth Scroll -->
+            <div class="demo-box slide-in-right">
+                <div class="animation-title">Smooth Scrolling</div>
+                <p>Smooth page transitions and scroll animations for better UX.</p>
+                <a href="#features" class="btn btn-primary demo-button">Scroll Smooth</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Animation Techniques Section -->
+<section class="showcase-section bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Animation Techniques Used</h2>
+        
+        <div class="row">
+            <div class="col-md-6 mb-4 slide-in-left">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">CSS 3D Transforms</h5>
+                        <p class="card-text">Advanced CSS 3D perspective effects with rotateX, rotateY, and perspective properties for depth.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 mb-4 slide-in-right">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">jQuery Interactions</h5>
+                        <p class="card-text">Pixel-perfect animations and smooth interactions using jQuery for enhanced user engagement.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 mb-4 slide-in-left">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Keyframe Animations</h5>
+                        <p class="card-text">Smooth keyframe animations with cubic-bezier easing for professional motion curves.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 mb-4 slide-in-right">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Parallax Effects</h5>
+                        <p class="card-text">Scrolling parallax effects with fixed backgrounds for depth and visual interest.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 mb-4 slide-in-left">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Gradient Shifts</h5>
+                        <p class="card-text">Animated gradient backgrounds with smooth color transitions for modern aesthetics.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 mb-4 slide-in-right">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Intersection Observer</h5>
+                        <p class="card-text">Smart element animations that trigger when entering viewport for performance optimization.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Technology Stack -->
+<section class="showcase-section">
+    <div class="container">
+        <h2 class="text-center mb-5 slide-in-left">Technology Stack</h2>
+        
+        <div class="row">
+            <div class="col-md-4 mb-4 slide-in-left">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-cube fa-3x mb-3" style="color: #007bff;"></i>
+                        <h5 class="card-title">CSS3</h5>
+                        <p class="card-text">3D transforms, animations, gradients, and modern CSS features for stunning visuals.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4 slide-in-right">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <i class="fab fa-js-square fa-3x mb-3" style="color: #23d5ab;"></i>
+                        <h5 class="card-title">jQuery</h5>
+                        <p class="card-text">Pixel-perfect DOM manipulation and smooth animations for enhanced interactions.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4 slide-in-left">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-bootstrap fa-3x mb-3" style="color: #e73c7e;"></i>
+                        <h5 class="card-title">Bootstrap 5</h5>
+                        <p class="card-text">Responsive design framework with customized components for professional layouts.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="showcase-section bg-primary text-white">
+    <div class="container text-center">
+        <h2 class="mb-4">Ready to Experience the Magic?</h2>
+        <p class="lead mb-4">Explore the Advit Placement Services with modern 3D animations and pixel-perfect design.</p>
+        <a href="{% url 'home' %}" class="btn btn-light btn-lg">Back to Home</a>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // This will use the notify function from animations.js
+    console.log('Animation showcase loaded with all 3D effects active!');
+</script>
+{% endblock %}
